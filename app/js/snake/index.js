@@ -1,6 +1,7 @@
-import { gameBoard } from "../board/index.js";
+import { gameBoard, randomPosition } from "../board/index.js";
+import { foodBody, collison as snakeFoodCollision } from "../food/index.js";
 
-const snakeBody = [
+export const snakeBody = [
   { x: 11, y: 11 },
   { x: 12, y: 11 },
   { x: 13, y: 11 },
@@ -19,8 +20,16 @@ export function update() {
   x = snakeBody[0].x + inputMoviment.x;
   y = snakeBody[0].y + inputMoviment.y;
 
-  // add uma nova posição no começo e removendo a ultima
+  // add cabeça
   snakeBody.unshift({ x, y });
+
+  // verifica colison com a fruta
+  if (snakeFoodCollision()) {
+    console.log("newPs");
+    return;
+  }
+
+  // se não comeu fruta: remove a ultima parte
   snakeBody.pop();
 }
 
@@ -43,14 +52,14 @@ export function draw() {
 
 export function collision(position) {
   //some: retorna true se ao menos uma for verdadeira
-  return snakeBody.some((segment) => {
-    return position.x === segment.x && position.y === segment.y;
-  });
+  console.log(snakeBody);
+  // return snakeBody.some((segment) => {
+  //   return position.x === segment.x && position.y === segment.y;
+  // });
 }
 
 // ----- EVENTS ----- //
 addEventListener("keydown", (e) => {
-  console.log(e);
   switch (e.key) {
     case "ArrowUp":
       inputMoviment.x = -1;
