@@ -1,12 +1,10 @@
 import { gameBoard, randomPosition } from "../board/index.js";
-import { snakeBody, collision as snakeCollision } from "../snake/index.js";
+import { snakeBody } from "../snake/index.js";
 
 export let foodBody = randomPosition();
 
 export function update() {
-  if (collison()) {
-    foodBody = randomPosition();
-  }
+  if (collison()) foodBody = randomPosition();
 }
 
 export function draw() {
@@ -26,12 +24,10 @@ export function draw() {
 
 export function collison() {
   //let newPosition = randomPosition();
-//   console.log(snakeBody[0].x + "/" + snakeBody[0].y);
-//   console.log(foodBody.x + "/" + foodBody.y);
+  //   console.log(snakeBody[0].x + "/" + snakeBody[0].y);
+  //   console.log(foodBody.x + "/" + foodBody.y);
 
-  if (snakeBody[0].x == foodBody.y && snakeBody[0].y == foodBody.x) {
-    return true;
-  }
+  if (snakeBody[0].x == foodBody.y && snakeBody[0].y == foodBody.x) return true;
 
   return false;
 }

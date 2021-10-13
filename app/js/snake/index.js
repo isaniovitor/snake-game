@@ -1,13 +1,9 @@
-import { gameBoard, randomPosition } from "../board/index.js";
-import { foodBody, collison as snakeFoodCollision } from "../food/index.js";
+import { gameBoard, wallCollision } from "../board/index.js";
+import { collison as snakeFoodCollision } from "../food/index.js";
 
-export const snakeBody = [
-  { x: 11, y: 11 },
-  { x: 12, y: 11 },
-  { x: 13, y: 11 },
-];
+export let snakeBody = [{ x: 11, y: 11 }];
 
-const inputMoviment = {
+let inputMoviment = {
   x: 0,
   y: 0,
 };
@@ -23,19 +19,19 @@ export function update() {
   // add cabeça
   snakeBody.unshift({ x, y });
 
-  // verifica colison com a fruta
-  if (snakeFoodCollision()) {
-    console.log("newPs");
-    return;
-  }
+  // verifica colison com a fruta, se houver: ele deica de eliminar o ultimo. isso aumentara a cobra
+  if (!snakeFoodCollision()) snakeBody.pop();
 
-  // se não comeu fruta: remove a ultima parte
-  snakeBody.pop();
+  // verifica colisão com a parede
+  if (wallCollision(snakeBody[0]) || selfCollision()) {
+    resetSnake();
+    //return;
+  }
 }
 
 export function draw() {
   snakeBody.forEach((segment) => {
-    // create element
+    // create elements
     const snakeElement = document.createElement("div");
 
     // CSS
@@ -50,12 +46,27 @@ export function draw() {
   });
 }
 
-export function collision(position) {
-  //some: retorna true se ao menos uma for verdadeira
-  console.log(snakeBody);
-  // return snakeBody.some((segment) => {
-  //   return position.x === segment.x && position.y === segment.y;
-  // });
+function selfCollision() {
+  if (snakeBody.length != 1) {
+    for (var i = 1; i < snakeBody.length; i++) {
+      if (
+        snakeBody[0].x == snakeBody[i].x &&
+        snakeBody[0].y == snakeBody[i].y
+      ) {
+        console.log(snakeBody[0], snakeBody[i], i);
+        return true;
+      }
+    }
+  }
+  return false;
+}
+
+function resetSnake() {
+  inputMoviment = { x: 0, y: 0 };
+  snakeBody[0] = { x: 11, y: 11 };
+
+  // rreseta a cobra ao tamanho normal
+  snakeBody.splice(1, snakeBody.length);
 }
 
 // ----- EVENTS ----- //

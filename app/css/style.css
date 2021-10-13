@@ -15,7 +15,7 @@ body {
 }
 
 #game_board {
-  background-color: #ccc;
+  background-color: lightblue;
 
   height: 100vmin;
   width: 100vmin;

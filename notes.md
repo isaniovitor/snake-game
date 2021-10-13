@@ -20,3 +20,6 @@ https://developer.mozilla.org/pt-BR/docs/Web/JavaScript/Reference/Global_Objects
 
 <!-- === -->
 https://pt.stackoverflow.com/questions/7/qual-a-diferen%C3%A7a-entre-os-operadores-e-em-javascript
+
+<!-- arrays -->
+https://developer.mozilla.org/pt-BR/docs/Web/JavaScript/Reference/Global_Objects/Array
