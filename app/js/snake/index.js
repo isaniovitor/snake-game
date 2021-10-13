@@ -23,10 +23,7 @@ export function update() {
   if (!snakeFoodCollision()) snakeBody.pop();
 
   // verifica colisão com a parede
-  if (wallCollision(snakeBody[0]) || selfCollision()) {
-    resetSnake();
-    //return;
-  }
+  if (wallCollision(snakeBody[0]) || selfCollision()) resetSnake();
 }
 
 export function draw() {
@@ -47,15 +44,11 @@ export function draw() {
 }
 
 function selfCollision() {
+  // verifica se ha mais de um segmento
   if (snakeBody.length != 1) {
     for (var i = 1; i < snakeBody.length; i++) {
-      if (
-        snakeBody[0].x == snakeBody[i].x &&
-        snakeBody[0].y == snakeBody[i].y
-      ) {
-        console.log(snakeBody[0], snakeBody[i], i);
+      if (snakeBody[0].x == snakeBody[i].x && snakeBody[0].y == snakeBody[i].y)
         return true;
-      }
     }
   }
   return false;
@@ -71,6 +64,7 @@ function resetSnake() {
 
 // ----- EVENTS ----- //
 addEventListener("keydown", (e) => {
+  //console.log(e);
   switch (e.key) {
     case "ArrowUp":
       inputMoviment.x = -1;
@@ -87,6 +81,10 @@ addEventListener("keydown", (e) => {
     case "ArrowRight":
       inputMoviment.x = 0;
       inputMoviment.y = 1;
+      break;
+    default:
+      inputMoviment.x = 0;
+      inputMoviment.y = 0;
       break;
   }
 });
