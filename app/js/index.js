@@ -3,7 +3,7 @@ import { draw as snakeDraw, update as snakeUpdate } from "./snake/index.js";
 import { draw as foodDraw, update as foodUpdate } from "./food/index.js";
 
 // const SNAKE_SPEED = 5;
-const FPS = 5;
+const FPS = 10;
 let frame;
 
 // main

@@ -4,8 +4,8 @@ import { collison as snakeFoodCollision } from "../food/index.js";
 export let snakeBody = [{ x: 11, y: 11 }];
 
 let inputMoviment = {
-  x: 0,
-  y: 0,
+  x: null,
+  y: null,
 };
 
 // ----- FUNCTIONS ----- //
@@ -55,7 +55,7 @@ function selfCollision() {
 }
 
 function resetSnake() {
-  inputMoviment = { x: 0, y: 0 };
+  inputMoviment = { x: null, y: null };
   snakeBody[0] = { x: 11, y: 11 };
 
   // rreseta a cobra ao tamanho normal
@@ -67,24 +67,24 @@ addEventListener("keydown", (e) => {
   //console.log(e);
   switch (e.key) {
     case "ArrowUp":
+      if (inputMoviment.y == 0) break;
       inputMoviment.x = -1;
       inputMoviment.y = 0;
       break;
     case "ArrowDown":
+      if (inputMoviment.y == 0) break;
       inputMoviment.x = 1;
       inputMoviment.y = 0;
       break;
     case "ArrowLeft":
+      if (inputMoviment.x == 0) break;
       inputMoviment.x = 0;
       inputMoviment.y = -1;
       break;
     case "ArrowRight":
+      if (inputMoviment.x == 0) break;
       inputMoviment.x = 0;
       inputMoviment.y = 1;
-      break;
-    default:
-      inputMoviment.x = 0;
-      inputMoviment.y = 0;
       break;
   }
 });
